@@ -112,7 +112,20 @@ container {
 
 #indexBtnToGallery {
     cursor: auto;
-    text-decoration: underline;
+}
+
+#indexHeader.show #indexBtnToGallery {
+    text-decoration: none;
+    animation: makeUnderline 0.3s ease-in 0.4s forwards;
+}
+
+@keyframes makeUnderline {
+    from {
+        text-decoration: none;
+    }
+    to {
+        text-decoration: underline;
+    }
 }
 
 .menuArrow {
@@ -1257,7 +1270,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
     font-family: 'Playfair Display';
     font-style: normal;
     font-weight: 400;
-    font-size: 3.6em;
+    font-size: 3.3em;
     line-height: 48px;
     letter-spacing: 0.05em;
     text-align: center;
@@ -1270,7 +1283,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
     font-family: 'Playfair Display';
     font-style: normal;
     font-weight: 400;
-    font-size: 3em;
+    font-size: 2.7em;
     line-height: 40px;
     text-align: center;
     letter-spacing: 0.05em;
@@ -1284,7 +1297,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
     font-family: 'Oswald';
     font-style: normal;
     font-weight: 300;
-    font-size: 2.1em;
+    font-size: 1.7em;
     line-height: 36px;
     letter-spacing: 0.05em;
     padding: 0 16.823%;
@@ -1299,7 +1312,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
     font-family: 'Oswald';
     font-style: normal;
     font-weight: 800;
-    font-size: 2.3em;
+    font-size: 2em;
     line-height: 36px;
     letter-spacing: 0.05em;
     padding: 0 16.823%;
@@ -1317,7 +1330,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
     font-family: 'Oswald';
     font-style: normal;
     font-weight: 300;
-    font-size: 2.1em;
+    font-size: 1.7em;
     line-height: 36px;
     letter-spacing: 0.05em;
     padding: 0 16.823%;
