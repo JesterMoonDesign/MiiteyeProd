@@ -1,10 +1,39 @@
+const isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
 let section1 = document.getElementsByClassName('index-section-1');
 let section2 = document.getElementsByClassName('index-section-2');
 let section3 = document.getElementsByClassName('index-section-3');
 let scrollAnimate = document.getElementsByClassName('scrollAnimate');
 let logo = document.getElementsByClassName('logo');
 const header = document.getElementById('indexHeader');
+let y = 0;
+let mobIndex = 1;
 
+if(isMobile.any()) {
+    mobIndex = 1;
+} else {
+    mobIndex = 20;
+};
+console.log(mobIndex)
 function isGallery () {
     let key = localStorage.getItem('whereGo?');
     if (key == 'gallery') {
@@ -20,22 +49,20 @@ function isGallery () {
 
 function goToSection2 (event) {
 
+    let x = event.screenX;
+    console.log('X_'+x)
     document.body.addEventListener('pointermove', listenScroll);
     event.preventDefault();
-    let x = event.screenX;
-    let y = 0;
 
     function listenScroll (event) {
         event.preventDefault();
 
-        document.body.addEventListener('pointerup', pointerUpFunction);
-
+        document.body.addEventListener('pointerup', pointerUpFunction)
+        y = event.screenX;
+        console.log('Y_'+y)
         function pointerUpFunction (event) {
-            document.body.removeEventListener('pointermove', listenScroll);
-            y = event.screenX;
 
-            if (section1[0].classList.contains('active') && y-x<=30) {
-
+            if (section1[0].classList.contains('active') && x-y>(5*mobIndex)) {
                 let index = 30;
 
                 let transitionToSection2 = setInterval(() => {
@@ -52,13 +79,14 @@ function goToSection2 (event) {
                         let logoAnimStep1 = setTimeout(() => {
                             logo[0].classList.add("section2");
                             section2[0].classList.add("active");
-                            document.body.removeEventListener('pointerdown', goToSection2);
-                            document.body.removeEventListener('pointerup', pointerUpFunction);
                             clearTimeout(logoAnimStep1);
                         }, 1500);
                     };
                 }, 5);
             }
+                document.body.removeEventListener('pointermove', listenScroll)
+                document.body.removeEventListener('pointerdown', goToSection2)
+                document.body.removeEventListener('pointerup', pointerUpFunction)
         }
     }
 }
@@ -66,21 +94,19 @@ function goToSection2 (event) {
 function goToSection3 (event) {
     event.preventDefault();
     document.body.addEventListener('pointermove', listenScroll);
-    event.preventDefault();
     let x = event.screenX;
-    let y = 0;
+    console.log('X_'+x, 'Y_'+y,x-y)
 
     function listenScroll (event) {
         event.preventDefault();
 
-        document.body.addEventListener('pointerup', pointerUpFunction);
+        document.body.addEventListener('pointerup', pointerUpFunction)
+        y = event.screenX;
 
         function pointerUpFunction (event) {
-            document.body.removeEventListener('pointermove', listenScroll);
-            y = event.screenX;
 
-            if (section2[0].classList.contains('active') && x-y<=20 && !(section1[0].classList.contains('active'))) {
-
+            if (section2[0].classList.contains('active') && x-y<=-(5*mobIndex) && !(section1[0].classList.contains('active'))) {
+                console.log('xyi',x-y)
                 let index = 30;
 
                 let transitionToSection1 = setInterval(() => {
@@ -97,18 +123,11 @@ function goToSection3 (event) {
                         logo[0].classList.remove("section3");
                         logo[0].classList.remove("active");
                         clearInterval(transitionToSection1);
-
-
-                        let logoAnimStep1 = setTimeout(() => {
-                            document.body.removeEventListener('pointerdown', goToSection3);
-                            document.body.removeEventListener('pointerup', pointerUpFunction);
-                            clearTimeout(logoAnimStep1);
-                        }, 1500);
                     };
                 }, 5);
             } else {
-                if (section2[0].classList.contains('active') && !(section3[0].classList.contains('active')) && y-x<=10) {
-
+                if (section2[0].classList.contains('active')  && x-y>=(5*mobIndex) && !(section3[0].classList.contains('active'))) {
+                    console.log('xyi',x-y)
                     let index = 30;
     
                     let transitionToSection3 = setInterval(() => {
@@ -125,14 +144,15 @@ function goToSection3 (event) {
     
                             let logoAnimStep2 = setTimeout(() => {
                                 logo[0].classList.add("active");
-                                document.body.removeEventListener('pointerdown', goToSection3);
-                                document.body.removeEventListener('pointerup', pointerUpFunction);
                                 clearTimeout(logoAnimStep2);
                             }, 50);
                         };
                     }, 5);
                 }
             }
+            document.body.removeEventListener('pointermove', listenScroll)
+            document.body.removeEventListener('pointerdown', goToSection3)
+            document.body.removeEventListener('pointerup', pointerUpFunction)
         }
     }
 }
@@ -140,20 +160,20 @@ function goToSection3 (event) {
 function goToSection2Reverse (event) {
     event.preventDefault();
     document.body.addEventListener('pointermove', listenScroll);
-    event.preventDefault();
     let x = event.screenX;
-    let y = 0;
+    console.log('X_'+x, 'Y_'+y,x-y)
 
     function listenScroll (event) {
         event.preventDefault();
 
-        document.body.addEventListener('pointerup', pointerUpFunction);
+        document.body.addEventListener('pointerup', pointerUpFunction)
+        y = event.screenX;
 
         function pointerUpFunction (event) {
-            document.body.removeEventListener('pointermove', listenScroll);
-            y = event.screenX;
+            document.body.removeEventListener('pointermove', listenScroll)
 
-            if (section3[0].classList.contains('active') && x-y<=-10) {
+            if (section3[0].classList.contains('active') && x-y<=-(5*mobIndex)) {
+                console.log(x,y,x-y)
 
                 let index = 0;
 
@@ -174,29 +194,27 @@ function goToSection2Reverse (event) {
                         let logoAnimReversStep1 = setTimeout(() => {
                             section3[0].style.transform = 'translateX(0%)';
                             logo[0].classList.add("active");
-                            document.body.removeEventListener('pointerdown', goToSection2Reverse);
-                            document.body.removeEventListener('pointerup', pointerUpFunction);
                             clearTimeout(logoAnimReversStep1);
                         }, 50);
                     };
                 }, 5);
             }
-
-
+            document.body.removeEventListener('pointerdown', goToSection2Reverse)
+            document.body.removeEventListener('pointerup', pointerUpFunction)
         }
     }
 }
 
 function checkCurrentSection() {
-    if (section1[0].classList.contains('active')) {
+    if (section1[0].classList.contains('active') && !section2[0].classList.contains('active') && !section3[0].classList.contains('active')) {
         document.body.addEventListener('pointerdown', goToSection2);
         header.classList.remove('show');
     } else {
-        if (section2[0].classList.contains('active')) {
+        if (section2[0].classList.contains('active') && !section1[0].classList.contains('active') && !section3[0].classList.contains('active')) {
             document.body.addEventListener('pointerdown', goToSection3);
             header.classList.remove('show');
         } else {
-            if (section3[0].classList.contains('active')) {
+            if (section3[0].classList.contains('active') && !section1[0].classList.contains('active') && !section2[0].classList.contains('active')) {
             document.body.addEventListener('pointerdown', goToSection2Reverse);
             header.classList.add('show');
             }
