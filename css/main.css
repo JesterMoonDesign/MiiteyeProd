@@ -714,6 +714,10 @@ h2 {
         margin: 30px auto 0 auto;
         width: 90%;
     }
+    .section2ImgWrapper.num1, .section2ImgWrapper.num2 {
+        margin-top: 10px;
+        margin-bottom: 0;
+    } 
     .section2AdaptWrapper_mobile {
         display: block;
     }

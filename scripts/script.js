@@ -33,7 +33,7 @@ if(isMobile.any()) {
 } else {
     mobIndex = 20;
 };
-console.log(mobIndex)
+
 function isGallery () {
     let key = localStorage.getItem('whereGo?');
     if (key == 'gallery') {
@@ -48,6 +48,7 @@ function isGallery () {
 }isGallery ();
 
 function goToSection2 (event) {
+    event.preventDefault();
 
     let x = event.screenX;
     console.log('X_'+x)
@@ -59,8 +60,7 @@ function goToSection2 (event) {
 
         document.body.addEventListener('pointerup', pointerUpFunction)
         y = event.screenX;
-        console.log('Y_'+y)
-        function pointerUpFunction (event) {
+        function pointerUpFunction () {
 
             if (section1[0].classList.contains('active') && x-y>(5*mobIndex)) {
                 let index = 30;
@@ -75,14 +75,13 @@ function goToSection2 (event) {
                         clearInterval(transitionToSection2);
                         section1[0].classList.remove("active");
 
-
                         let logoAnimStep1 = setTimeout(() => {
                             logo[0].classList.add("section2");
                             section2[0].classList.add("active");
                             clearTimeout(logoAnimStep1);
                         }, 1500);
                     };
-                }, 5);
+                }, 4);
             }
                 document.body.removeEventListener('pointermove', listenScroll)
                 document.body.removeEventListener('pointerdown', goToSection2)
@@ -95,7 +94,6 @@ function goToSection3 (event) {
     event.preventDefault();
     document.body.addEventListener('pointermove', listenScroll);
     let x = event.screenX;
-    console.log('X_'+x, 'Y_'+y,x-y)
 
     function listenScroll (event) {
         event.preventDefault();
@@ -103,10 +101,9 @@ function goToSection3 (event) {
         document.body.addEventListener('pointerup', pointerUpFunction)
         y = event.screenX;
 
-        function pointerUpFunction (event) {
+        function pointerUpFunction () {
 
             if (section2[0].classList.contains('active') && x-y<=-(5*mobIndex) && !(section1[0].classList.contains('active'))) {
-                console.log('xyi',x-y)
                 let index = 30;
 
                 let transitionToSection1 = setInterval(() => {
@@ -124,10 +121,9 @@ function goToSection3 (event) {
                         logo[0].classList.remove("active");
                         clearInterval(transitionToSection1);
                     };
-                }, 5);
+                }, 4);
             } else {
                 if (section2[0].classList.contains('active')  && x-y>=(5*mobIndex) && !(section3[0].classList.contains('active'))) {
-                    console.log('xyi',x-y)
                     let index = 30;
     
                     let transitionToSection3 = setInterval(() => {
@@ -147,7 +143,7 @@ function goToSection3 (event) {
                                 clearTimeout(logoAnimStep2);
                             }, 50);
                         };
-                    }, 5);
+                    }, 4);
                 }
             }
             document.body.removeEventListener('pointermove', listenScroll)
@@ -161,7 +157,6 @@ function goToSection2Reverse (event) {
     event.preventDefault();
     document.body.addEventListener('pointermove', listenScroll);
     let x = event.screenX;
-    console.log('X_'+x, 'Y_'+y,x-y)
 
     function listenScroll (event) {
         event.preventDefault();
@@ -169,13 +164,12 @@ function goToSection2Reverse (event) {
         document.body.addEventListener('pointerup', pointerUpFunction)
         y = event.screenX;
 
-        function pointerUpFunction (event) {
+        function pointerUpFunction () {
             document.body.removeEventListener('pointermove', listenScroll)
 
             if (section3[0].classList.contains('active') && x-y<=-(5*mobIndex)) {
-                console.log(x,y,x-y)
 
-                let index = 0;
+                let index = 30;
 
                 let transitionToSection2 = setInterval(() => {
                     index++;
@@ -197,7 +191,7 @@ function goToSection2Reverse (event) {
                             clearTimeout(logoAnimReversStep1);
                         }, 50);
                     };
-                }, 5);
+                }, 4);
             }
             document.body.removeEventListener('pointerdown', goToSection2Reverse)
             document.body.removeEventListener('pointerup', pointerUpFunction)
