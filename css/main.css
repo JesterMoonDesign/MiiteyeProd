@@ -1651,7 +1651,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
         margin-top: 10px;
     }
     .aboutSection1 {
-        font-size: 2em;
+        font-size: 2.5em;
     }
     .AboutH2 {
         margin-top: 10px;
@@ -1660,6 +1660,6 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
         padding: 0 20px;
     }
     .aboutFooter {
-        font-size: 2em;
+        font-size: 2.5em;
     }
 }

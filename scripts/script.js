@@ -31,7 +31,7 @@ let moveIndex = 1;
 
 if(isMobile.any()) {
     mobIndex = 1;
-    moveIndex = 10;
+    moveIndex = 5;
 } else {
     mobIndex = 20;
     moveIndex = 1;
@@ -72,7 +72,7 @@ function goToSection2 (event) {
                     section1[0].style.transform = 'translateX(-' + index + '%)';
                     section2[0].style.transform = 'translateX(0%)';
 
-                    if (index >= 91){
+                    if (index >= 96){
                         logo[0].classList.add("active");
                         clearInterval(transitionToSection2);
                         section1[0].classList.remove("active");
@@ -141,7 +141,7 @@ function goToSection3 (event) {
                         index+=moveIndex;
                         section2[0].style.transform = 'translateX(-' + index + '%)';
     
-                        if (index >= 91){
+                        if (index >= 96){
                             clearInterval(transitionToSection3);
                             section2[0].classList.remove("active");
                             logo[0].classList.remove("section2");
