@@ -13,7 +13,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{di
 html{height:100vh; width: 100vw; overflow-x: hidden;}
 body{line-height:1; overflow-x: hidden;}
 ol,ul{list-style:none}
-button {padding: 0;border: none;font: inherit;color: inherit;background-color: transparent;cursor: pointer;}
+button {padding: 0;margin: 0;border: none;font: inherit;color: inherit;background-color: transparent;cursor: pointer;}
 blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
 table{border-collapse:collapse;border-spacing:0}
@@ -910,6 +910,9 @@ footer.active {
     .mobileHeader .headerMenu li {
         margin-right: 2.5%;
     }
+    #indexBtnToGallery {
+        animation: none;
+    }
     .mobileHeader .headerMenu .menuArrow {
         white-space: nowrap;
     }
@@ -950,6 +953,11 @@ footer.active {
     .section3ImageWrapper {
         width: 32%;
     }
+    .section3ImageWrapper:nth-child(1), .section3ImageWrapper:nth-child(2), .section3ImageWrapper:nth-child(3) {
+        animation: none;
+        transform: translateY(0);
+        opacity: 1;
+    }
     .section3 {
         margin: 20px 0 0 10px;
     }
@@ -972,6 +980,11 @@ footer.active {
     }
     .socialMediaLinks {
         margin-left: 0;
+    }
+    .hover:hover {
+        transition: none;
+        filter: none;
+        transform: translate(0, 0);
     }
 }
 /*Section 3*/

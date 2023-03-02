@@ -51,7 +51,6 @@ function goToSection2 (event) {
     event.preventDefault();
 
     let x = event.screenX;
-    console.log('X_'+x)
     document.body.addEventListener('pointermove', listenScroll);
     event.preventDefault();
 
@@ -74,6 +73,8 @@ function goToSection2 (event) {
                         logo[0].classList.add("active");
                         clearInterval(transitionToSection2);
                         section1[0].classList.remove("active");
+                        section1[0].style.display = "none";
+                        section2[0].style.display = "block";
 
                         let logoAnimStep1 = setTimeout(() => {
                             logo[0].classList.add("section2");
@@ -114,8 +115,11 @@ function goToSection3 (event) {
 
                     if (reverseIndex == 0){
                         section2[0].classList.remove("active");
+                        section2[0].style.display = "none";
                         section3[0].classList.remove("active");
+                        section3[0].style.display = "none";
                         section1[0].classList.add("active");
+                        section1[0].style.display = "block";
                         logo[0].classList.remove("section2");
                         logo[0].classList.remove("section3");
                         logo[0].classList.remove("active");
@@ -133,9 +137,11 @@ function goToSection3 (event) {
                         if (index >= 101){
                             clearInterval(transitionToSection3);
                             section2[0].classList.remove("active");
+                            section2[0].style.display = "none";
                             logo[0].classList.remove("section2");
                             logo[0].classList.add("section3");
                             section3[0].classList.add("active");
+                            section3[0].style.display = "block";
     
     
                             let logoAnimStep2 = setTimeout(() => {
@@ -181,8 +187,10 @@ function goToSection2Reverse (event) {
                     if (index >= 101){
                         clearInterval(transitionToSection2);
                         section3[0].classList.remove("active");
+                        section3[0].style.display = "none";
                         logo[0].classList.add("section2");
                         section2[0].classList.add("active");
+                        section2[0].style.display = "block";
 
 
                         let logoAnimReversStep1 = setTimeout(() => {
@@ -220,12 +228,15 @@ let checkCurrentSectionInterval = setInterval(() => {
     checkCurrentSection();
 }, 1000);
 
-function headeInnerMenu () {
+function headerInnerMenu () {
     const menuArrow = document.getElementById('menuArrow');
+    const mobileMenuArrow = document.getElementById('mobileMenuArrow');
     const arrow = document.getElementById('arrow');
     let innerMenu = document.getElementById('headerMenu');
 
-    menuArrow.addEventListener('click', shwoInnerMenu)
+    menuArrow.addEventListener('click', shwoInnerMenu);
+    mobileMenuArrow.addEventListener('click', shwoInnerMenu);
+    
 
     function shwoInnerMenu () {
         if (header.classList.contains('show')) {
@@ -235,4 +246,29 @@ function headeInnerMenu () {
             innerMenu.classList.remove('active');
         }
     }
-}headeInnerMenu();
+}
+
+function mobileHeaderInnerMenu () {
+    const mobileMenuArrow = document.getElementById('mobileMenuArrow');
+    const arrow = document.getElementById('mobileMenuArrow');
+    let innerMenu = document.getElementById('mobileHeaderMenu');
+
+    menuArrow.addEventListener('click', shwoInnerMenu);
+    mobileMenuArrow.addEventListener('click', shwoInnerMenu);
+    
+
+    function shwoInnerMenu () {
+        if (header.classList.contains('show')) {
+            innerMenu.classList.toggle('active');
+            arrow.classList.toggle('active');
+        } else {
+            innerMenu.classList.remove('active');
+        }
+    }
+};
+
+if(isMobile.any()) {
+    mobileHeaderInnerMenu();
+} else {
+    headerInnerMenu();
+};
