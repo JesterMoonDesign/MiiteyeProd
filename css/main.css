@@ -79,7 +79,7 @@ container {
 /*Header*/
 #indexHeader {
     width: 100%;
-    padding-top: 2.604%;
+    padding: 2.604% 2% 0 0;
     visibility: hidden;
     transform: translateX(40%);
     position: relative;
@@ -912,6 +912,12 @@ footer.active {
     }
     #indexBtnToGallery {
         animation: none;
+        cursor: pointer;
+    }
+    #indexBtnToGallery.indexBtnToGallery {
+        animation: none;
+        cursor: default;
+        text-decoration: underline;
     }
     .mobileHeader .headerMenu .menuArrow {
         white-space: nowrap;
@@ -1331,7 +1337,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
 }
 
 /*Series page styles*/
-#seriesHeader {
+.seriesHeader {
     transform: translateX(100%);
     animation: seriesHeaderAnim 0.7s ease-in 0s forwards;
 }
@@ -1475,7 +1481,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
     font-style: normal;
     font-weight: 400;
     font-size: 2.7em;
-    line-height: 40px;
+    line-height: 25px;
     text-align: center;
     letter-spacing: 0.05em;
     margin-top: 20px;
@@ -1489,7 +1495,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
     font-style: normal;
     font-weight: 300;
     font-size: 1.7em;
-    line-height: 36px;
+    line-height: 20px;
     letter-spacing: 0.05em;
     padding: 0 16.823%;
     text-indent: 4%;
@@ -1522,7 +1528,7 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
     font-style: normal;
     font-weight: 300;
     font-size: 1.7em;
-    line-height: 36px;
+    line-height: 20px;
     letter-spacing: 0.05em;
     padding: 0 16.823%;
     transform: translateY(-20%);
@@ -1570,6 +1576,9 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
         width: 95%;
         margin: 10px auto 0 auto;
         flex-wrap: wrap;
+    }
+    .galleryBlock1.first {
+        margin-top: 2%;
     }
     .galleryBlock1Wrapper_1 {
         width: 49.934%;
@@ -1640,5 +1649,17 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
     }
     .galleryBlock3ImgWrapper_5 {
         margin-top: 10px;
+    }
+    .aboutSection1 {
+        font-size: 2em;
+    }
+    .AboutH2 {
+        margin-top: 10px;
+    }
+    .AboutP, .aboutSection1 h3, .courses li {
+        padding: 0 20px;
+    }
+    .aboutFooter {
+        font-size: 2em;
     }
 }
