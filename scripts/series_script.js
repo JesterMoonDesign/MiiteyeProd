@@ -19,14 +19,30 @@ const isMobile = {
     }
 };
 
-function galleryMenuInnerMenu () {
-    const galleryMenuArrow = document.getElementById('galleryMenuArrow');
-    const galleryInnerMenu = document.getElementsByClassName('galleryHeaderMenu');
-    galleryMenuArrow.addEventListener('click', showMenu);
-    function showMenu () {
-        galleryInnerMenu[0].classList.toggle('active');
-    }
-}galleryMenuInnerMenu();
+function headerInnerMenu () {
+    const mobileBtn = document.getElementById('pcBtn');
+    const innerMenu = document.getElementById('galleryHeaderMenuId');
+    const arrow = document.getElementById('galleryMenuArrow');
+
+    mobileBtn.addEventListener('click', (() => {
+        innerMenu.classList.toggle('active');
+    }));
+};
+
+function mobileHeaderInnerMenu () {
+    const mobileBtn = document.getElementById('mobileBtn');
+    const innerMenu = document.getElementById('mobileHeaderMenu');
+
+    mobileBtn.addEventListener('click', (() => {
+        innerMenu.classList.toggle('active');
+    }));
+};
+
+if(isMobile.any()) {
+    mobileHeaderInnerMenu();
+} else {
+    headerInnerMenu();
+};
 
 const sliders = document.getElementsByClassName('imagesRow');
 

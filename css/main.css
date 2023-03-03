@@ -183,6 +183,7 @@ container {
     display: flex;
     flex-direction: row;
     justify-content: right;
+    align-items: center;
     z-index: 10;
     transform: translateX(0%);
 }
@@ -429,16 +430,21 @@ h2 {
 
 /*Section 1*/
 .titlePic {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 0;
+    height: 80%;
     transform: translateX(100%);
     animation: aniTitleStep2Pic 0.4s ease-in 1.05s forwards, aniTitleStep3Pic 0.4s ease-in 1.45s forwards;
 }
 
 .titlePic img {
-    max-width: 100%;
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
 .aniTitleBg {
@@ -648,6 +654,7 @@ h2 {
 
 .section2ImgWrapper img {
     width: 100%;
+    height: 100%;
     position: absolute;
     left: 0;
     top: 0;
@@ -750,23 +757,8 @@ h2 {
     }
 }
 
-@keyframes scrollAnimReverse {
-    0% {
-        transform: translate(0);
-    }
-    50% {
-        transform: translate(10%);
-    }
-    100% {
-        transform: translate(0);
-    }
-}
-
-.index-section-1.scrollAnim.active, .index-section-2.scrollAnim.active {
+.index-section-1.scrollAnim.active, .index-section-2.scrollAnim.active, .logo, .logo.active.section2 {
     animation: scrollAnim 1s ease-in-out 5s;
-}
-.index-section-3.scrollAnim.active {
-    animation: scrollAnimReverse 1s ease-in-out 5s;
 }
 /*Section 2*/
 
@@ -942,6 +934,7 @@ footer.active {
         animation: none;
         display: flex;
         flex-direction: row;
+        padding-bottom: 10px;
         margin: 7% -0.5% 0 0;
     }
     .mobileHeader .headerMenu li {
