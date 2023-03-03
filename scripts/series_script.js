@@ -1,3 +1,24 @@
+const isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
 function galleryMenuInnerMenu () {
     const galleryMenuArrow = document.getElementById('galleryMenuArrow');
     const galleryInnerMenu = document.getElementsByClassName('galleryHeaderMenu');
@@ -10,21 +31,37 @@ function galleryMenuInnerMenu () {
 const sliders = document.getElementsByClassName('imagesRow');
 
 function deleteAnim () {
+    sliders[0].style.animation = "none";
+    sliders[0].style.opacity = "1";
+    sliders[0].style.transform = "translateX(0px)";
+    console.log('loaded');
+    sliders[0].style.animation = "scrollAnim 1s ease-in-out 1s";
+
     for (let i = 0; i < sliders.length; i++) {
         let slider = sliders[i];
-        slider.style.animation = "none";
-        slider.style.opacity = "1";
-        slider.style.transform = "translateX(0px)";
+        let timeout = setTimeout(() => {
+            slider.style.animation = "none";
+            slider.style.opacity = "1";
+            slider.style.transform = "translateX(0px)";
+            clearTimeout(timeout);
+        }, 2000);
     }
-    clearTimeout(deleteAnim);
-}setTimeout(deleteAnim, 2000);
+}
+window.onload = setTimeout(deleteAnim, 3000)
+
+
+if(isMobile.any()) {
+    mobileIndex = 1;
+} else {
+    mobileIndex = 3;
+};
 
 function slider () {
     let sliderWrappers = document.getElementsByClassName('sliderWrapper');
     const image = document.getElementsByClassName('sliderImageWrapper');
     let imageWidth = parseInt(getComputedStyle(image[0]).width);
     let xData = {};
-    let y = 3;
+    let y = mobileIndex;
     for(let i = 0; i < sliderWrappers.length; i++) {
         sliderWrappers[i].addEventListener('pointerdown', startSlide);
     
@@ -43,7 +80,7 @@ function slider () {
             this.addEventListener('pointerup', endSlide);
             this.addEventListener('pointercancel', endSlide);
             this.addEventListener('pointerleave', endSlide);
-            let x1 = event.offsetX;//точка первого касания
+            let x1 = event.offsetX;
             let x2 = 0;
 
             function moveSlide (event, x) {
@@ -74,8 +111,8 @@ function slider () {
                         }
                     };
                 } else if (y>3 && e2 > e1 && e2-e1 > (0.5*imageWidth)) {
-                    if (y<=3) {
-                        y=3;
+                    if (y<=mobileIndex) {
+                        y=mobileIndex;
                     } else {
                         y--;
                         if (e2-e1 > (1.5*imageWidth)) {
@@ -89,16 +126,14 @@ function slider () {
                 if (y>=slidersLength) {
                     y=slidersLength;
                 }
-                if (y<=3) {
-                    y=3;
+                if (y<=mobileIndex) {
+                    y=mobileIndex;
                 };
-                if (y>3 && y <= slidersLength) {
-                    sliders[i].style.transform = "translateX(" + ((y-3)*-imageWidth-(y-3)*20) + "px)";
-                } else if (y==3) {
+                if (y>mobileIndex && y <= slidersLength) {
+                    sliders[i].style.transform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
+                } else if (y==mobileIndex) {
                     sliders[i].style.transform = "translateX(0px)";
                 }
-                console.log(y,slidersLength);
-
                 getX0 ();
             };
         }
@@ -106,4 +141,4 @@ function slider () {
 };
 setTimeout(() => {
     slider();
-}, 1500);
+}, 3000);
