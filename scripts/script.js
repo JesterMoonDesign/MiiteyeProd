@@ -253,10 +253,11 @@ function mobileHeaderInnerMenu () {
 
     mobileBtn.addEventListener('click', (() => {
         innerMenu.classList.toggle('active');
+        document.body.removeEventListener('pointerdown', goToSection2Reverse);
     }));
 };
 
-if(isMobile.any()) {
+if (isMobile.any()) {
     mobileHeaderInnerMenu();
 } else {
     headerInnerMenu();

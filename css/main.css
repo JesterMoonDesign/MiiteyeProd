@@ -714,6 +714,10 @@ h2 {
         margin: 30px auto 0 auto;
         width: 90%;
     }
+    .index-section-2.active p, .index-section-2.active h2 {
+        animation: none;
+        opacity: 1;
+    }
     .section2ImgWrapper.num1, .section2ImgWrapper.num2 {
         margin-top: 10px;
         margin-bottom: 0;
@@ -732,6 +736,37 @@ h2 {
     .index-section-2 h2 {
         font-size: 8em;
     }
+}
+
+@keyframes scrollAnim {
+    0% {
+        transform: translate(0);
+    }
+    50% {
+        transform: translate(-10%);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes scrollAnimReverse {
+    0% {
+        transform: translate(0);
+    }
+    50% {
+        transform: translate(10%);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+.index-section-1.scrollAnim.active, .index-section-2.scrollAnim.active {
+    animation: scrollAnim 1s ease-in-out 5s;
+}
+.index-section-3.scrollAnim.active {
+    animation: scrollAnimReverse 1s ease-in-out 5s;
 }
 /*Section 2*/
 
@@ -769,7 +804,8 @@ h2 {
 .section3ImageWrapper img {
     position: absolute;
     object-fit: cover;
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .section3ImageWrapper:nth-child(1) {
@@ -901,6 +937,7 @@ footer.active {
         justify-content: space-between;
     }
     .mobileHeader .headerMenu {
+        font-size: 3.5em;
         display: block;
         animation: none;
         display: flex;
@@ -957,12 +994,22 @@ footer.active {
         margin: 10px auto 0 auto;
     }
     .section3ImageWrapper {
-        width: 32%;
+        width: 48.65%;
+        padding-bottom: 87%;
     }
     .section3ImageWrapper:nth-child(1), .section3ImageWrapper:nth-child(2), .section3ImageWrapper:nth-child(3) {
         animation: none;
         transform: translateY(0);
         opacity: 1;
+    }
+    .section3ImageWrapper:nth-child(1) {
+        transform: translateY(-20%);
+    }
+    .section3ImageWrapper:nth-child(2) {
+        transform: translateY(0);
+    }
+    .section3ImageWrapper:nth-child(3) {
+        display: none;
     }
     .section3 {
         margin: 20px 0 0 10px;
@@ -976,12 +1023,13 @@ footer.active {
         grid-row-gap: 20px;
     }
     .categoryTab::after {
-        font-size: 4em;
+        font-size: 5.5em;
+        font-weight: 10;
     }
     footer {
         margin: 0 auto;
         width: 95%;
-        font-size: 4em;
+        font-size: 6.5em;
         justify-content: space-between;
     }
     .socialMediaLinks {
@@ -1651,7 +1699,8 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
         margin-top: 10px;
     }
     .aboutSection1 {
-        font-size: 2.5em;
+        font-size: 3em;
+        line-height: 200;
     }
     .AboutH2 {
         margin-top: 10px;
@@ -1660,6 +1709,6 @@ animation: galleryLoad 0.3s ease-in 0s forwards;
         padding: 0 20px;
     }
     .aboutFooter {
-        font-size: 2.5em;
+        font-size: 2em;
     }
 }
