@@ -48,10 +48,16 @@ const sliders = document.getElementsByClassName('imagesRow');
 
 function deleteAnim () {
     sliders[0].style.animation = "none";
+    sliders[0].style.webkitAnimation = "none";
+    sliders[0].style.mozAnimation = "none";
     sliders[0].style.opacity = "1";
     sliders[0].style.transform = "translateX(0px)";
+    sliders[0].style.webkitTransform = "translateX(0px)";
+    sliders[0].style.mozTransform = "translateX(0px)";
     console.log('loaded');
     sliders[0].style.animation = "scrollAnim 1s ease-in-out 1s";
+    sliders[0].style.webkitAnimation = "scrollAnim 1s ease-in-out 1s";
+    sliders[0].style.mozAnimation = "scrollAnim 1s ease-in-out 1s";
 
     for (let i = 0; i < sliders.length; i++) {
         let slider = sliders[i];
@@ -59,6 +65,8 @@ function deleteAnim () {
             slider.style.animation = "none";
             slider.style.opacity = "1";
             slider.style.transform = "translateX(0px)";
+            slider.style.webkitTransform = "translateX(0px)";
+            slider.style.mozTransform = "translateX(0px)";
             clearTimeout(timeout);
         }, 2000);
     }
@@ -88,10 +96,10 @@ function slider () {
         }getX0();
 
         function startSlide (event) {
+            event.preventDefault();
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
             let e2 = 0;
-            event.preventDefault();
             this.addEventListener('pointermove', moveSlide);
             this.addEventListener('pointerup', endSlide);
             this.addEventListener('pointercancel', endSlide);
@@ -100,13 +108,17 @@ function slider () {
             let x2 = 0;
 
             function moveSlide (event, x) {
+                event.preventDefault();
                 x2 = event.layerX;
                 x = x2-x1;
                 xData.x = x;
                 sliders[i].style.transform = "translateX(" + x + 'px)';
+                sliders[i].style.webkitTransform = "translateX(" + x + 'px)';
+                sliders[i].style.mozTransform = "translateX(" + x + 'px)';
             }
 
             function endSlide () {
+                event.preventDefault();
                 this.removeEventListener('pointermove', moveSlide);
                 this.removeEventListener('pointerup', endSlide);
                 this.removeEventListener('pointercancel', endSlide);
@@ -147,8 +159,12 @@ function slider () {
                 };
                 if (y>mobileIndex && y <= slidersLength) {
                     sliders[i].style.transform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
+                    sliders[i].style.webkitTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
+                    sliders[i].style.mozTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
                 } else if (y==mobileIndex) {
                     sliders[i].style.transform = "translateX(0px)";
+                    sliders[i].style.webkitTransform = "translateX(0px)";
+                    sliders[i].style.mozTransform = "translateX(0px)";
                 }
                 getX0 ();
             };

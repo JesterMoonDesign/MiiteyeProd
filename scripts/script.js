@@ -63,6 +63,7 @@ function goToSection2 (event) {
         document.body.addEventListener('pointerup', pointerUpFunction)
         y = event.screenX;
         function pointerUpFunction () {
+            event.preventDefault();
 
             if (section1[0].classList.contains('active') && x-y>(5*mobIndex)) {
                 let index = 30;
@@ -70,9 +71,13 @@ function goToSection2 (event) {
                 let transitionToSection2 = setInterval(() => {
                     index+=moveIndex;
                     section1[0].style.transform = 'translateX(-' + index + '%)';
+                    section1[0].style.webkitTransform = 'translateX(-' + index + '%)';
+                    section1[0].style.mozTransform = 'translateX(-' + index + '%)';
                     section2[0].style.transform = 'translateX(0%)';
+                    section2[0].style.webkitTransform = 'translateX(0%)';
+                    section2[0].style.mozTransform = 'translateX(0%)';
 
-                    if (index >= 96){
+                    if (index >= 100){
                         logo[0].classList.add("active");
                         clearInterval(transitionToSection2);
                         section1[0].classList.remove("active");
@@ -106,6 +111,7 @@ function goToSection3 (event) {
         y = event.screenX;
 
         function pointerUpFunction () {
+            event.preventDefault();
 
             if (section2[0].classList.contains('active') && x-y<=-(5*mobIndex) && !(section1[0].classList.contains('active'))) {
                 let index = 30;
@@ -113,8 +119,12 @@ function goToSection3 (event) {
                 let transitionToSection1 = setInterval(() => {
                     index+=moveIndex;
                     section2[0].style.transform = 'translateX(' + index + '%)';
-                    let reverseIndex = index - (100+moveIndex);
+                    section2[0].style.webkitTransform = 'translateX(' + index + '%)';
+                    section2[0].style.mozTransform = 'translateX(' + index + '%)';
+                    let reverseIndex = index - (100 + moveIndex);
                     section1[0].style.transform = 'translateX(' + reverseIndex + '%)';
+                    section1[0].style.webkitTransform = 'translateX(' + reverseIndex + '%)';
+                    section1[0].style.mozTransform = 'translateX(' + reverseIndex + '%)';
 
                     if (reverseIndex == 0){
                         section2[0].classList.remove("active");
@@ -140,8 +150,10 @@ function goToSection3 (event) {
                     let transitionToSection3 = setInterval(() => {
                         index+=moveIndex;
                         section2[0].style.transform = 'translateX(-' + index + '%)';
+                        section2[0].style.webkitTransform = 'translateX(-' + index + '%)';
+                        section2[0].style.mozTransform = 'translateX(-' + index + '%)';
     
-                        if (index >= 96){
+                        if (index >= 100){
                             clearInterval(transitionToSection3);
                             section2[0].classList.remove("active");
                             logo[0].classList.remove("section2");
@@ -178,6 +190,7 @@ function goToSection2Reverse (event) {
         y = event.screenX;
 
         function pointerUpFunction () {
+            event.preventDefault();
             document.body.removeEventListener('pointermove', listenScroll)
 
             if (section3[0].classList.contains('active') && x-y<=-(5*mobIndex)) {
@@ -187,11 +200,15 @@ function goToSection2Reverse (event) {
                 let transitionToSection2 = setInterval(() => {
                     index+=moveIndex;
                     section3[0].style.transform = 'translateX(' + index + '%)';
+                    section3[0].style.webkitTransform = 'translateX(' + index + '%)';
+                    section3[0].style.mozTransform = 'translateX(' + index + '%)';
                     let reverseIndex = index - (100+moveIndex);
                     section2[0].style.transform = 'translateX(' + reverseIndex + '%)';
+                    section2[0].style.webkitTransform = 'translateX(' + reverseIndex + '%)';
+                    section2[0].style.mozTransform = 'translateX(' + reverseIndex + '%)';
 
 
-                    if (index >= 101){
+                    if (index >= 100){
                         clearInterval(transitionToSection2);
                         section3[0].classList.remove("active");
                         logo[0].classList.add("section2");
@@ -201,6 +218,8 @@ function goToSection2Reverse (event) {
 
                         let logoAnimReversStep1 = setTimeout(() => {
                             section3[0].style.transform = 'translateX(0%)';
+                            section3[0].style.webkitTransform = 'translateX(0%)';
+                            section3[0].style.mozTransform = 'translateX(0%)';
                             logo[0].classList.add("active");
                             section3[0].style.display = "none";
                             clearTimeout(logoAnimReversStep1);
