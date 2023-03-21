@@ -80,6 +80,103 @@ if(isMobile.any()) {
     mobileIndex = 3;
 };
 
+// function slider () {
+//     let sliderWrappers = document.getElementsByClassName('sliderWrapper');
+//     const image = document.getElementsByClassName('sliderImageWrapper');
+//     let imageWidth = parseInt(getComputedStyle(image[0]).width);
+//     let xData = {};
+//     let y = mobileIndex;
+//     for(let i = 0; i < sliderWrappers.length; i++) {
+//         sliderWrappers[i].addEventListener('pointerdown', startSlide);
+    
+//         function getX0 () {
+//             let matrex = window.getComputedStyle(sliders[i]).getPropertyValue("transform");
+//             let matrexArr = matrex.split(", ");
+//             xData.x0 = parseInt(matrexArr[4]);
+//         }getX0();
+
+//         function startSlide (event) {
+//             event.preventDefault();
+//             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
+//             let e1 = xData.x0;
+//             let e2 = 0;
+//             this.addEventListener('pointermove', moveSlide);
+//             this.addEventListener('pointerup', endSlide);
+//             this.addEventListener('pointercancel', endSlide);
+//             this.addEventListener('pointerleave', endSlide);
+//             let x1 = event.offsetX;
+//             let x2 = 0;
+
+//             function moveSlide (event, x) {
+//                 event.preventDefault();
+//                 x2 = event.layerX;
+//                 x = x2-x1;
+//                 xData.x = x;
+//                 sliders[i].style.transform = "translateX(" + x + 'px)';
+//                 sliders[i].style.webkitTransform = "translateX(" + x + 'px)';
+//                 sliders[i].style.mozTransform = "translateX(" + x + 'px)';
+//             }
+
+//             function endSlide () {
+//                 event.preventDefault();
+//                 this.removeEventListener('pointermove', moveSlide);
+//                 this.removeEventListener('pointerup', endSlide);
+//                 this.removeEventListener('pointercancel', endSlide);
+//                 this.removeEventListener('pointerleave', endSlide);
+//                 getX0 ();
+//                 e2 = xData.x0;
+
+//                 if (e2 < e1 && e2-e1 < (-0.5*imageWidth) && y < slidersLength) {
+//                     if (y>=slidersLength) {
+//                         y=slidersLength;
+//                     } else if (y<slidersLength) {
+//                         y++;
+//                         if (e2-e1 < (-1.5*imageWidth)) {
+//                             y++;
+//                             if (e2-e1 < (-2.5*imageWidth)) {
+//                                 y++;
+//                             }
+//                         }
+//                     };
+//                 } else if (y>3 && e2 > e1 && e2-e1 > (0.5*imageWidth)) {
+//                     if (y<=mobileIndex) {
+//                         y=mobileIndex;
+//                     } else {
+//                         y--;
+//                         if (e2-e1 > (1.5*imageWidth)) {
+//                             y--;
+//                             if (e2-e1 > (2.5*imageWidth)) {
+//                                 y--;
+//                             }
+//                         }
+//                     }
+//                 };
+//                 if (y>=slidersLength) {
+//                     y=slidersLength;
+//                 }
+//                 if (y<=mobileIndex) {
+//                     y=mobileIndex;
+//                 };
+//                 if (y>mobileIndex && y <= slidersLength) {
+//                     sliders[i].style.transform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
+//                     sliders[i].style.webkitTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
+//                     sliders[i].style.mozTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
+//                 } else if (y==mobileIndex) {
+//                     sliders[i].style.transform = "translateX(0px)";
+//                     sliders[i].style.webkitTransform = "translateX(0px)";
+//                     sliders[i].style.mozTransform = "translateX(0px)";
+//                 }
+//                 getX0 ();
+//             };
+//         }
+//     }
+// };
+// setTimeout(() => {
+//     slider();
+// }, 3000);
+
+
+
 function slider () {
     let sliderWrappers = document.getElementsByClassName('sliderWrapper');
     const image = document.getElementsByClassName('sliderImageWrapper');
@@ -87,7 +184,6 @@ function slider () {
     let xData = {};
     let y = mobileIndex;
     for(let i = 0; i < sliderWrappers.length; i++) {
-        sliderWrappers[i].addEventListener('pointerdown', startSlide);
     
         function getX0 () {
             let matrex = window.getComputedStyle(sliders[i]).getPropertyValue("transform");
@@ -95,19 +191,15 @@ function slider () {
             xData.x0 = parseInt(matrexArr[4]);
         }getX0();
 
-        function startSlide (event) {
+        sliderWrappers[i].onpointerdown = function (event) {
             event.preventDefault();
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
             let e2 = 0;
-            this.addEventListener('pointermove', moveSlide);
-            this.addEventListener('pointerup', endSlide);
-            this.addEventListener('pointercancel', endSlide);
-            this.addEventListener('pointerleave', endSlide);
             let x1 = event.offsetX;
             let x2 = 0;
 
-            function moveSlide (event, x) {
+            this.onpointermove = function (event, x) {
                 event.preventDefault();
                 x2 = event.layerX;
                 x = x2-x1;
@@ -119,10 +211,6 @@ function slider () {
 
             function endSlide () {
                 event.preventDefault();
-                this.removeEventListener('pointermove', moveSlide);
-                this.removeEventListener('pointerup', endSlide);
-                this.removeEventListener('pointercancel', endSlide);
-                this.removeEventListener('pointerleave', endSlide);
                 getX0 ();
                 e2 = xData.x0;
 
@@ -167,7 +255,13 @@ function slider () {
                     sliders[i].style.mozTransform = "translateX(0px)";
                 }
                 getX0 ();
+                this.onpointerup = null;
+                this.onpointermove = null;
             };
+            this.onpointerup = endSlide;
+            this.onpointercancel = endSlide;
+            this.onpointerend = endSlide;
+            this.onpointerleave = endSlide;
         }
     }
 };

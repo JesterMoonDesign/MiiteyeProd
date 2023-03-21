@@ -52,17 +52,15 @@ function isGallery () {
 
 function goToSection2 (event) {
     event.preventDefault();
+    document.body.setPointerCapture(event.pointerId);
 
     let x = event.screenX;
-    document.body.addEventListener('pointermove', listenScroll);
     event.preventDefault();
 
-    function listenScroll (event) {
+    document.body.onpointermove = function (event) {
         event.preventDefault();
-
-        document.body.addEventListener('pointerup', pointerUpFunction)
         y = event.screenX;
-        function pointerUpFunction () {
+        document.body.onpointerup = function () {
             event.preventDefault();
 
             if (section1[0].classList.contains('active') && x-y>(5*mobIndex)) {
@@ -92,25 +90,23 @@ function goToSection2 (event) {
                     };
                 }, 4);
             }
-                document.body.removeEventListener('pointermove', listenScroll)
-                document.body.removeEventListener('pointerdown', goToSection2)
-                document.body.removeEventListener('pointerup', pointerUpFunction)
+            document.body.removeEventListener('pointerdown', goToSection2)
+            document.body.onpointermove = null;
+            document.body.onpointerup = null;
         }
     }
 }
 
 function goToSection3 (event) {
     event.preventDefault();
-    document.body.addEventListener('pointermove', listenScroll);
+    document.body.setPointerCapture(event.pointerId);
     let x = event.screenX;
 
-    function listenScroll (event) {
+    document.body.onpointermove = function (event) {
         event.preventDefault();
-
-        document.body.addEventListener('pointerup', pointerUpFunction)
         y = event.screenX;
 
-        function pointerUpFunction () {
+        document.body.onpointerup = function () {
             event.preventDefault();
 
             if (section2[0].classList.contains('active') && x-y<=-(5*mobIndex) && !(section1[0].classList.contains('active'))) {
@@ -171,27 +167,25 @@ function goToSection3 (event) {
                     }, 4);
                 }
             }
-            document.body.removeEventListener('pointermove', listenScroll)
             document.body.removeEventListener('pointerdown', goToSection3)
-            document.body.removeEventListener('pointerup', pointerUpFunction)
+            document.body.onpointermove = null;
+            document.body.onpointerup = null;
         }
     }
 }
 
 function goToSection2Reverse (event) {
     event.preventDefault();
-    document.body.addEventListener('pointermove', listenScroll);
+    document.body.setPointerCapture(event.pointerId);
     let x = event.screenX;
 
-    function listenScroll (event) {
+    document.body.onpointermove = function (event) {
         event.preventDefault();
 
-        document.body.addEventListener('pointerup', pointerUpFunction)
         y = event.screenX;
 
-        function pointerUpFunction () {
+        document.body.onpointerup = function () {
             event.preventDefault();
-            document.body.removeEventListener('pointermove', listenScroll)
 
             if (section3[0].classList.contains('active') && x-y<=-(5*mobIndex)) {
 
@@ -208,7 +202,7 @@ function goToSection2Reverse (event) {
                     section2[0].style.mozTransform = 'translateX(' + reverseIndex + '%)';
 
 
-                    if (index >= 100){
+                    if (index >= 105){
                         clearInterval(transitionToSection2);
                         section3[0].classList.remove("active");
                         logo[0].classList.add("section2");
@@ -228,7 +222,8 @@ function goToSection2Reverse (event) {
                 }, 4);
             }
             document.body.removeEventListener('pointerdown', goToSection2Reverse)
-            document.body.removeEventListener('pointerup', pointerUpFunction)
+            document.body.onpointermove = null;
+            document.body.onpointerup = null;
         }
     }
 }
@@ -249,6 +244,7 @@ function checkCurrentSection() {
         }
     }
 }
+
 
 let checkCurrentSectionInterval = setInterval(() => {
     checkCurrentSection();
