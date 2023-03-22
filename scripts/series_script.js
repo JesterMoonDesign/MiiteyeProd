@@ -98,11 +98,12 @@ function seriesSliders () {
 
         sliderWrappers[i].onpointerdown = function (event) {
             event.preventDefault();
-            this.setPointerCapture(event.pointerId);
+            sliderWrappers[i].setPointerCapture(event.pointerId);
 
-
-            if (isMobile.Android() || isMobile.Android() || isMobile.Opera() || isMobile.Windows()) {
-                sliderWrappers[i].style.TouchAction = 'pan-x';
+            if (navigator.userAgent.match(/iPhone|iPad|iPod/i) == null) {
+                sliderWrappers[i].style.touchAction = 'pan-y';
+            } else {
+                sliderWrappers[i].style.touchAction = 'auto';
             }
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
