@@ -99,7 +99,6 @@ function seriesSliders () {
         sliderWrappers[i].onpointerdown = function (event) {
             event.preventDefault();
             this.setPointerCapture(event.pointerId);
-            sliderWrappers[i].style.TouchAction = 'pan-x';
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
             let e2 = 0;
@@ -164,7 +163,6 @@ function seriesSliders () {
                 this.onpointercancel = null;
                 this.onpointerend = null;
                 this.onpointerleave = null;
-                sliderWrappers[i].style.TouchAction = 'auto';
             };
             this.onpointerup = endSlide;
             this.onpointerend = endSlide;
