@@ -60,7 +60,7 @@ function moveMainPage () {
                 event.preventDefault();
                 y = event.screenX;
                 function endTouch () {
-                    window.scrollTo(0,0);
+                    
 
                     if (section1.classList.contains('active') && x-y>(5*mobIndex)) {
                         let index = 30;
@@ -79,6 +79,7 @@ function moveMainPage () {
                                 clearInterval(transitionToSection2);
                                 section1.classList.remove("active");
                                 section2.style.display = "flex";
+                                section2.scrollIntoView({block: "start", behavior: "instant"});
 
                                 let logoAnimStep1 = setTimeout(() => {
                                     logo.classList.add("section2");
@@ -113,7 +114,7 @@ function moveMainPage () {
                     y = event.screenX;
 
                     function endTouch () {
-                        window.scrollTo(0,0);
+                        
 
                         if (section2.classList.contains('active') && x-y<=-(5*mobIndex) && !(section1.classList.contains('active'))) {
                             let index = 30;
@@ -133,6 +134,7 @@ function moveMainPage () {
                                     section3.classList.remove("active");
                                     section1.classList.add("active");
                                     section1.style.display = "flex";
+                                    section1.scrollIntoView({block: "start", behavior: "instant"});
                                     logo.classList.remove("section2");
                                     logo.classList.remove("section3");
                                     logo.classList.remove("active");
@@ -167,6 +169,7 @@ function moveMainPage () {
                                         logo.classList.add("section3");
                                         section3.classList.add("active");
                                         section3.style.display = "block";
+                                        section3.scrollIntoView({block: "start", behavior: "instant"});
                 
                 
                                         let logoAnimStep2 = setTimeout(() => {
@@ -201,7 +204,6 @@ function moveMainPage () {
                         y = event.screenX;
 
                         function endTouch () {
-                            window.scrollTo(0,0);
                             
                             if (section3.classList.contains('active') && x-y<=-(5*mobIndex)) {
                                 
@@ -225,6 +227,7 @@ function moveMainPage () {
                                         logo.classList.add("section2");
                                         section2.classList.add("active");
                                         section2.style.display = "flex";
+                                        section2.scrollIntoView({block: "start", behavior: "instant"});
 
 
                                         let logoAnimReversStep1 = setTimeout(() => {
@@ -258,7 +261,6 @@ function moveMainPage () {
 
 let checkCurrentSectionInterval = setInterval(() => {
     moveMainPage ();
-    window.scrollBy(0, 0);
 }, 1000);
 
 

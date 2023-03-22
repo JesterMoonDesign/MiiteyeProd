@@ -100,13 +100,13 @@ function seriesSliders () {
             event.preventDefault();
             sliderWrappers[i].setPointerCapture(event.pointerId);
 
-            if (navigator.userAgent.match(/iPhone|iPad|iPod/i) == null) {
-                sliderWrappers[i].style.touchAction = 'pan-y';
-                sliderWrappers[i].style.msTouchAction = 'pan-y';
-            } else {
-                sliderWrappers[i].style.touchAction = 'auto';
-                sliderWrappers[i].style.msTouchAction = 'auto';
+            if (isMobile.any()) {
+                let pagePosition = window.scrollY;
+                document.body.classList.add('disable-scroll');
+                document.body.dataset.position = pagePosition;
+                document.body.style.top = -pagePosition + 'px';
             }
+
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
             let e2 = 0;
@@ -171,6 +171,14 @@ function seriesSliders () {
                 this.onpointerend = null;
                 this.onpointercancel = null;
                 this.onpointerleave = null;
+
+                if (isMobile.any()) {
+                    pagePosition = parseInt(document.body.dataset.position, 10);
+                    document.body.style.top = 'auto';
+                    document.body.classList.remove('disable-scroll');
+                    window.scroll({ top: pagePosition, left: 0 });
+                    document.body.removeAttribute('data-position');
+                }
             };
             this.onpointerup = endSlide;
             this.onpointerend = endSlide;
