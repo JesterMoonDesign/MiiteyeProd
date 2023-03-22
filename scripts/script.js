@@ -19,11 +19,11 @@ const isMobile = {
     }
 };
 
-let section1 = document.getElementsByClassName('index-section-1');
-let section2 = document.getElementsByClassName('index-section-2');
-let section3 = document.getElementsByClassName('index-section-3');
+let section1 = document.querySelector('.index-section-1');
+let section2 = document.querySelector('.index-section-2');
+let section3 = document.querySelector('.index-section-3');
 let scrollAnimate = document.getElementsByClassName('scrollAnimate');
-let logo = document.getElementsByClassName('logo');
+let logo = document.querySelector('.logo');
 const header = document.getElementById('indexHeader');
 let y = 0;
 let mobIndex = 1;
@@ -40,214 +40,237 @@ if(isMobile.any()) {
 function isGallery () {
     let key = localStorage.getItem('whereGo?');
     if (key == 'gallery') {
-        section1[0].classList.remove("active");
-        section2[0].classList.remove("active");
-        section3[0].classList.add("active");
-        logo[0].classList.remove("section2");
-        logo[0].classList.add("active");
-        logo[0].classList.add("section3");
+        section1.classList.remove("active");
+        section2.classList.remove("active");
+        section3.classList.add("active");
+        logo.classList.remove("section2");
+        logo.classList.add("active");
+        logo.classList.add("section3");
     }
     localStorage.clear();
 }isGallery ();
 
-function goToSection2 (event) {
-    event.preventDefault();
-    document.body.setPointerCapture(event.pointerId);
+function moveMainPage () {
+    if (section1.classList.contains('active') && !section2.classList.contains('active') && !section3.classList.contains('active')) {
+        section1.onpointerdown = function goToSection2 (event) {
+            section1.setPointerCapture(event.pointerId);
+            let x = event.screenX;
 
-    let x = event.screenX;
-    event.preventDefault();
+            section1.onpointermove = function (event) {
+                event.preventDefault();
+                y = event.screenX;
+                function endTouch () {
 
-    document.body.onpointermove = function (event) {
-        event.preventDefault();
-        y = event.screenX;
-        document.body.onpointerup = function () {
-            event.preventDefault();
+                    if (section1.classList.contains('active') && x-y>(5*mobIndex)) {
+                        let index = 30;
 
-            if (section1[0].classList.contains('active') && x-y>(5*mobIndex)) {
-                let index = 30;
+                        let transitionToSection2 = setInterval(() => {
+                            index+=moveIndex;
+                            section1.style.transform = 'translateX(-' + index + '%)';
+                            section1.style.webkitTransform = 'translateX(-' + index + '%)';
+                            section1.style.mozTransform = 'translateX(-' + index + '%)';
+                            section2.style.transform = 'translateX(0%)';
+                            section2.style.webkitTransform = 'translateX(0%)';
+                            section2.style.mozTransform = 'translateX(0%)';
 
-                let transitionToSection2 = setInterval(() => {
-                    index+=moveIndex;
-                    section1[0].style.transform = 'translateX(-' + index + '%)';
-                    section1[0].style.webkitTransform = 'translateX(-' + index + '%)';
-                    section1[0].style.mozTransform = 'translateX(-' + index + '%)';
-                    section2[0].style.transform = 'translateX(0%)';
-                    section2[0].style.webkitTransform = 'translateX(0%)';
-                    section2[0].style.mozTransform = 'translateX(0%)';
+                            if (index >= 100){
+                                logo.classList.add("active");
+                                clearInterval(transitionToSection2);
+                                section1.classList.remove("active");
+                                section2.style.display = "flex";
 
-                    if (index >= 100){
-                        logo[0].classList.add("active");
-                        clearInterval(transitionToSection2);
-                        section1[0].classList.remove("active");
-                        section2[0].style.display = "flex";
-
-                        let logoAnimStep1 = setTimeout(() => {
-                            logo[0].classList.add("section2");
-                            section2[0].classList.add("active");
-                            section1[0].style.display = "none";
-                            clearTimeout(logoAnimStep1);
-                        }, 1500);
-                    };
-                }, 4);
+                                let logoAnimStep1 = setTimeout(() => {
+                                    logo.classList.add("section2");
+                                    section2.classList.add("active");
+                                    section1.style.display = "none";
+                                    section1.onpointermove = null;
+                                    section1.onpointerup = null;
+                                    section1.onpointerend = null;
+                                    section1.onpointerleave = null;
+                                    section1.onpointercancel = null;
+                                    clearTimeout(logoAnimStep1);
+                                }, 1500);
+                            };
+                        }, 4);
+                    }
+                }
+                section1.onpointerup = endTouch;
+                section1.onpointerend = endTouch;
+                section1.onpointerleave = endTouch;
+                section1.onpointercancel = endTouch;
             }
-            document.body.removeEventListener('pointerdown', goToSection2)
-            document.body.onpointermove = null;
-            document.body.onpointerup = null;
         }
-    }
-}
+        } else {
+        if (section2.classList.contains('active') && !section1.classList.contains('active') && !section3.classList.contains('active')) {
+            section2.onpointerdown = function goToSection3 (event) {
+                event.preventDefault();
+                section2.setPointerCapture(event.pointerId);
+                let x = event.screenX;
 
-function goToSection3 (event) {
-    event.preventDefault();
-    document.body.setPointerCapture(event.pointerId);
-    let x = event.screenX;
+                section2.onpointermove = function (event) {
+                    event.preventDefault();
+                    y = event.screenX;
 
-    document.body.onpointermove = function (event) {
-        event.preventDefault();
-        y = event.screenX;
+                    function endTouch () {
 
-        document.body.onpointerup = function () {
-            event.preventDefault();
+                        if (section2.classList.contains('active') && x-y<=-(5*mobIndex) && !(section1.classList.contains('active'))) {
+                            let index = 30;
 
-            if (section2[0].classList.contains('active') && x-y<=-(5*mobIndex) && !(section1[0].classList.contains('active'))) {
-                let index = 30;
+                            let transitionToSection1 = setInterval(() => {
+                                index+=moveIndex;
+                                section2.style.transform = 'translateX(' + index + '%)';
+                                section2.style.webkitTransform = 'translateX(' + index + '%)';
+                                section2.style.mozTransform = 'translateX(' + index + '%)';
+                                let reverseIndex = index - (100 + moveIndex);
+                                section1.style.transform = 'translateX(' + reverseIndex + '%)';
+                                section1.style.webkitTransform = 'translateX(' + reverseIndex + '%)';
+                                section1.style.mozTransform = 'translateX(' + reverseIndex + '%)';
 
-                let transitionToSection1 = setInterval(() => {
-                    index+=moveIndex;
-                    section2[0].style.transform = 'translateX(' + index + '%)';
-                    section2[0].style.webkitTransform = 'translateX(' + index + '%)';
-                    section2[0].style.mozTransform = 'translateX(' + index + '%)';
-                    let reverseIndex = index - (100 + moveIndex);
-                    section1[0].style.transform = 'translateX(' + reverseIndex + '%)';
-                    section1[0].style.webkitTransform = 'translateX(' + reverseIndex + '%)';
-                    section1[0].style.mozTransform = 'translateX(' + reverseIndex + '%)';
+                                if (reverseIndex == 0){
+                                    section2.classList.remove("active");
+                                    section3.classList.remove("active");
+                                    section1.classList.add("active");
+                                    section1.style.display = "flex";
+                                    logo.classList.remove("section2");
+                                    logo.classList.remove("section3");
+                                    logo.classList.remove("active");
+                                    clearInterval(transitionToSection1);
 
-                    if (reverseIndex == 0){
-                        section2[0].classList.remove("active");
-                        section3[0].classList.remove("active");
-                        section1[0].classList.add("active");
-                        section1[0].style.display = "flex";
-                        logo[0].classList.remove("section2");
-                        logo[0].classList.remove("section3");
-                        logo[0].classList.remove("active");
-                        clearInterval(transitionToSection1);
-
-                        let logoAnimStep1 = setTimeout(() => {
-                            section2[0].style.display = "none";
-                            section3[0].style.display = "none";
-                            clearTimeout(logoAnimStep1);
-                        }, 50);
-                    };
-                }, 4);
-            } else {
-                if (section2[0].classList.contains('active')  && x-y>=(5*mobIndex) && !(section3[0].classList.contains('active'))) {
-                    let index = 30;
-    
-                    let transitionToSection3 = setInterval(() => {
-                        index+=moveIndex;
-                        section2[0].style.transform = 'translateX(-' + index + '%)';
-                        section2[0].style.webkitTransform = 'translateX(-' + index + '%)';
-                        section2[0].style.mozTransform = 'translateX(-' + index + '%)';
-    
-                        if (index >= 100){
-                            clearInterval(transitionToSection3);
-                            section2[0].classList.remove("active");
-                            logo[0].classList.remove("section2");
-                            logo[0].classList.add("section3");
-                            section3[0].classList.add("active");
-                            section3[0].style.display = "block";
-    
-    
-                            let logoAnimStep2 = setTimeout(() => {
-                                logo[0].classList.add("active");
-                                section2[0].style.display = "none";
-                                clearTimeout(logoAnimStep2);
-                            }, 50);
-                        };
-                    }, 4);
+                                    let logoAnimStep1 = setTimeout(() => {
+                                        section2.style.display = "none";
+                                        section3.style.display = "none";
+                                        section2.onpointermove = null;
+                                        section2.onpointerup = null;
+                                        section2.onpointerend = null;
+                                        section2.onpointerleave = null;
+                                        section2.onpointercancel = null;
+                                        clearTimeout(logoAnimStep1);
+                                    }, 50);
+                                };
+                            }, 4);
+                        } else {
+                            if (section2.classList.contains('active')  && x-y>=(5*mobIndex) && !(section3.classList.contains('active'))) {
+                                let index = 30;
+                
+                                let transitionToSection3 = setInterval(() => {
+                                    index+=moveIndex;
+                                    section2.style.transform = 'translateX(-' + index + '%)';
+                                    section2.style.webkitTransform = 'translateX(-' + index + '%)';
+                                    section2.style.mozTransform = 'translateX(-' + index + '%)';
+                
+                                    if (index >= 100){
+                                        clearInterval(transitionToSection3);
+                                        section2.classList.remove("active");
+                                        logo.classList.remove("section2");
+                                        logo.classList.add("section3");
+                                        section3.classList.add("active");
+                                        section3.style.display = "block";
+                
+                
+                                        let logoAnimStep2 = setTimeout(() => {
+                                            logo.classList.add("active");
+                                            section2.style.display = "none";
+                                            section2.onpointermove = null;
+                                            section2.onpointerup = null;
+                                            section2.onpointerend = null;
+                                            section2.onpointerleave = null;
+                                            section2.onpointercancel = null;
+                                            clearTimeout(logoAnimStep2);
+                                        }, 50);
+                                    };
+                                }, 4);
+                            }
+                        }
+                    }
+                    section2.onpointerup = endTouch;
+                    section2.onpointerend = endTouch;
+                    section2.onpointerleave = endTouch;
+                    section2.onpointercancel = endTouch;
                 }
             }
-            document.body.removeEventListener('pointerdown', goToSection3)
-            document.body.onpointermove = null;
-            document.body.onpointerup = null;
-        }
-    }
-}
-
-function goToSection2Reverse (event) {
-    event.preventDefault();
-    document.body.setPointerCapture(event.pointerId);
-    let x = event.screenX;
-
-    document.body.onpointermove = function (event) {
-        event.preventDefault();
-
-        y = event.screenX;
-
-        document.body.onpointerup = function () {
-            event.preventDefault();
-
-            if (section3[0].classList.contains('active') && x-y<=-(5*mobIndex)) {
-
-                let index = 30;
-
-                let transitionToSection2 = setInterval(() => {
-                    index+=moveIndex;
-                    section3[0].style.transform = 'translateX(' + index + '%)';
-                    section3[0].style.webkitTransform = 'translateX(' + index + '%)';
-                    section3[0].style.mozTransform = 'translateX(' + index + '%)';
-                    let reverseIndex = index - (100+moveIndex);
-                    section2[0].style.transform = 'translateX(' + reverseIndex + '%)';
-                    section2[0].style.webkitTransform = 'translateX(' + reverseIndex + '%)';
-                    section2[0].style.mozTransform = 'translateX(' + reverseIndex + '%)';
-
-
-                    if (index >= 105){
-                        clearInterval(transitionToSection2);
-                        section3[0].classList.remove("active");
-                        logo[0].classList.add("section2");
-                        section2[0].classList.add("active");
-                        section2[0].style.display = "flex";
-
-
-                        let logoAnimReversStep1 = setTimeout(() => {
-                            section3[0].style.transform = 'translateX(0%)';
-                            section3[0].style.webkitTransform = 'translateX(0%)';
-                            section3[0].style.mozTransform = 'translateX(0%)';
-                            logo[0].classList.add("active");
-                            section3[0].style.display = "none";
-                            clearTimeout(logoAnimReversStep1);
-                        }, 50);
-                    };
-                }, 4);
-            }
-            document.body.removeEventListener('pointerdown', goToSection2Reverse)
-            document.body.onpointermove = null;
-            document.body.onpointerup = null;
-        }
-    }
-}
-
-function checkCurrentSection() {
-    if (section1[0].classList.contains('active') && !section2[0].classList.contains('active') && !section3[0].classList.contains('active')) {
-        document.body.addEventListener('pointerdown', goToSection2);
-        header.classList.remove('show');
-    } else {
-        if (section2[0].classList.contains('active') && !section1[0].classList.contains('active') && !section3[0].classList.contains('active')) {
-            document.body.addEventListener('pointerdown', goToSection3);
-            header.classList.remove('show');
         } else {
-            if (section3[0].classList.contains('active') && !section1[0].classList.contains('active') && !section2[0].classList.contains('active')) {
-            document.body.addEventListener('pointerdown', goToSection2Reverse);
-            header.classList.add('show');
+            if (section3.classList.contains('active') && !section1.classList.contains('active') && !section2.classList.contains('active')) {
+                function goToSection2Reverse (event) {
+                    section3.setPointerCapture(event.pointerId);
+                    let x = event.screenX;
+
+                    section3.onpointermove = function (event) {
+                        event.preventDefault();
+                        y = event.screenX;
+
+                        function endTouch () {
+
+                            if (section3.classList.contains('active') && x-y<=-(5*mobIndex)) {
+
+                                let index = 30;
+
+                                let transitionToSection2 = setInterval(() => {
+                                    index+=moveIndex;
+                                    section3.style.transform = 'translateX(' + index + '%)';
+                                    section3.style.webkitTransform = 'translateX(' + index + '%)';
+                                    section3.style.mozTransform = 'translateX(' + index + '%)';
+                                    let reverseIndex = index - (100+moveIndex);
+                                    section2.style.transform = 'translateX(' + reverseIndex + '%)';
+                                    section2.style.webkitTransform = 'translateX(' + reverseIndex + '%)';
+                                    section2.style.mozTransform = 'translateX(' + reverseIndex + '%)';
+
+
+                                    if (index >= 105){
+                                        clearInterval(transitionToSection2);
+                                        section3.classList.remove("active");
+                                        logo.classList.add("section2");
+                                        section2.classList.add("active");
+                                        section2.style.display = "flex";
+
+
+                                        let logoAnimReversStep1 = setTimeout(() => {
+                                            section3.style.transform = 'translateX(0%)';
+                                            section3.style.webkitTransform = 'translateX(0%)';
+                                            section3.style.mozTransform = 'translateX(0%)';
+                                            logo.classList.add("active");
+                                            section3.style.display = "none";
+                                            section3.onpointermove = null;
+                                            section3.onpointerup = null;
+                                            section3.onpointerend = null;
+                                            section3.onpointerleave = null;
+                                            section3.onpointercancel = null;
+                                            clearTimeout(logoAnimReversStep1);
+                                        }, 50);
+                                    };
+                                }, 4);
+                            }
+                        }
+                        section3.onpointerup = endTouch;
+                        section3.onpointerleave = endTouch;
+                        section3.onpointerend = endTouch;
+                        section3.onpointercancel = endTouch;
+                    }
+                }
+                section3.onpointerdown = goToSection2Reverse;
             }
         }
     }
 }
+// function checkCurrentSection() {
+//     if (section1.classList.contains('active') && !section2.classList.contains('active') && !section3[0].classList.contains('active')) {
+//         document.body.addEventListener('pointerdown', goToSection2);
+//         header.classList.remove('show');
+//     } else {
+//         if (section2.classList.contains('active') && !section1.classList.contains('active') && !section3[0].classList.contains('active')) {
+//             document.body.addEventListener('pointerdown', goToSection3);
+//             header.classList.remove('show');
+//         } else {
+//             if (section3[0].classList.contains('active') && !section1.classList.contains('active') && !section2.classList.contains('active')) {
+//             document.body.addEventListener('pointerdown', goToSection2Reverse);
+//             header.classList.add('show');
+//             }
+//         }
+//     }
+// }
 
 
 let checkCurrentSectionInterval = setInterval(() => {
-    checkCurrentSection();
+    moveMainPage ();
 }, 1000);
 
 

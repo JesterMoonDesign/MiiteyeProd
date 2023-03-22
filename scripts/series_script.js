@@ -193,15 +193,16 @@ function slider () {
 
         sliderWrappers[i].onpointerdown = function (event) {
             event.preventDefault();
+            this.setPointerCapture(event.pointerId);
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
             let e2 = 0;
             let x1 = event.offsetX;
             let x2 = 0;
-
-            this.onpointermove = function (event, x) {
+            
+            sliderWrappers[i].onpointermove = function (event, x) {
                 event.preventDefault();
-                x2 = event.layerX;
+                x2 = event.offsetX;
                 x = x2-x1;
                 xData.x = x;
                 sliders[i].style.transform = "translateX(" + x + 'px)';
@@ -210,10 +211,8 @@ function slider () {
             }
 
             function endSlide () {
-                event.preventDefault();
                 getX0 ();
                 e2 = xData.x0;
-
                 if (e2 < e1 && e2-e1 < (-0.5*imageWidth) && y < slidersLength) {
                     if (y>=slidersLength) {
                         y=slidersLength;
@@ -256,7 +255,11 @@ function slider () {
                 }
                 getX0 ();
                 this.onpointerup = null;
-                this.onpointermove = null;
+                sliderWrappers[i].onpointermove = null;
+                this.onpointerup = null;
+                this.onpointercancel = null;
+                this.onpointerend = null;
+                this.onpointerleave = null;
             };
             this.onpointerup = endSlide;
             this.onpointercancel = endSlide;
