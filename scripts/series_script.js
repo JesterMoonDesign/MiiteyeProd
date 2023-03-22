@@ -102,9 +102,10 @@ function seriesSliders () {
 
             if (navigator.userAgent.match(/iPhone|iPad|iPod/i) == null) {
                 sliderWrappers[i].style.touchAction = 'pan-y';
+                sliderWrappers[i].style.msTouchAction = 'pan-y';
             } else {
                 sliderWrappers[i].style.touchAction = 'auto';
-                document.body.style.overflowY = 'hidden';
+                sliderWrappers[i].style.msTouchAction = 'auto';
             }
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
@@ -167,10 +168,9 @@ function seriesSliders () {
                 this.onpointerup = null;
                 sliderWrappers[i].onpointermove = null;
                 this.onpointerup = null;
-                this.onpointercancel = null;
                 this.onpointerend = null;
+                this.onpointercancel = null;
                 this.onpointerleave = null;
-                document.body.style.overflowY = 'visible';
             };
             this.onpointerup = endSlide;
             this.onpointerend = endSlide;

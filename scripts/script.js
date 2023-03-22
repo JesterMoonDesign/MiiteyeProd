@@ -60,6 +60,7 @@ function moveMainPage () {
                 event.preventDefault();
                 y = event.screenX;
                 function endTouch () {
+                    window.scrollTo(0,0);
 
                     if (section1.classList.contains('active') && x-y>(5*mobIndex)) {
                         let index = 30;
@@ -112,6 +113,7 @@ function moveMainPage () {
                     y = event.screenX;
 
                     function endTouch () {
+                        window.scrollTo(0,0);
 
                         if (section2.classList.contains('active') && x-y<=-(5*mobIndex) && !(section1.classList.contains('active'))) {
                             let index = 30;
@@ -199,8 +201,10 @@ function moveMainPage () {
                         y = event.screenX;
 
                         function endTouch () {
-
+                            window.scrollTo(0,0);
+                            
                             if (section3.classList.contains('active') && x-y<=-(5*mobIndex)) {
+                                
 
                                 let index = 30;
 
@@ -254,6 +258,7 @@ function moveMainPage () {
 
 let checkCurrentSectionInterval = setInterval(() => {
     moveMainPage ();
+    window.scrollBy(0, 0);
 }, 1000);
 
 
