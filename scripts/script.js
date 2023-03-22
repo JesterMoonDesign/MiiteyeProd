@@ -251,23 +251,6 @@ function moveMainPage () {
         }
     }
 }
-// function checkCurrentSection() {
-//     if (section1.classList.contains('active') && !section2.classList.contains('active') && !section3[0].classList.contains('active')) {
-//         document.body.addEventListener('pointerdown', goToSection2);
-//         header.classList.remove('show');
-//     } else {
-//         if (section2.classList.contains('active') && !section1.classList.contains('active') && !section3[0].classList.contains('active')) {
-//             document.body.addEventListener('pointerdown', goToSection3);
-//             header.classList.remove('show');
-//         } else {
-//             if (section3[0].classList.contains('active') && !section1.classList.contains('active') && !section2.classList.contains('active')) {
-//             document.body.addEventListener('pointerdown', goToSection2Reverse);
-//             header.classList.add('show');
-//             }
-//         }
-//     }
-// }
-
 
 let checkCurrentSectionInterval = setInterval(() => {
     moveMainPage ();
