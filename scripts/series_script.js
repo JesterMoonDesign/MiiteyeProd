@@ -173,7 +173,7 @@ function seriesSliders () {
                 this.onpointerleave = null;
 
                 if (isMobile.any()) {
-                    pagePosition = parseInt(document.body.dataset.position, 10);
+                    let pagePosition = parseInt(document.body.dataset.position, 10);
                     document.body.style.top = 'auto';
                     document.body.classList.remove('disable-scroll');
                     window.scroll({ top: pagePosition, left: 0 });
