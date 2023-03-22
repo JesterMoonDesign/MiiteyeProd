@@ -99,6 +99,11 @@ function seriesSliders () {
         sliderWrappers[i].onpointerdown = function (event) {
             event.preventDefault();
             this.setPointerCapture(event.pointerId);
+
+
+            if (isMobile.Android() || isMobile.Android() || isMobile.Opera() || isMobile.Windows()) {
+                sliderWrappers[i].style.TouchAction = 'pan-x';
+            }
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
             let e2 = 0;
