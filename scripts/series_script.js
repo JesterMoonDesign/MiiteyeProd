@@ -104,6 +104,7 @@ function seriesSliders () {
                 sliderWrappers[i].style.touchAction = 'pan-y';
             } else {
                 sliderWrappers[i].style.touchAction = 'auto';
+                document.body.style.overflowY = 'hidden';
             }
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
@@ -169,6 +170,7 @@ function seriesSliders () {
                 this.onpointercancel = null;
                 this.onpointerend = null;
                 this.onpointerleave = null;
+                document.body.style.overflowY = 'visible';
             };
             this.onpointerup = endSlide;
             this.onpointerend = endSlide;
