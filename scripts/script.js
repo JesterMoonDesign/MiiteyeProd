@@ -128,7 +128,7 @@ function moveMainPage () {
                                 if (reverseIndex == 0){
                                     section2.classList.remove("active");
                                     section3.classList.remove("active");
-                                    header.classList.remove('show');
+                                    header.classList.remove("show");
                                     section1.classList.add("active");
                                     section1.style.display = "flex";
                                     section1.scrollIntoView({block: "start", behavior: "instant"});
@@ -162,7 +162,7 @@ function moveMainPage () {
                                         logo.classList.add("section3");
                                         section3.classList.add("active");
                                         section3.style.display = "block";
-                                        header.classList.add('show');
+                                        header.classList.add("show");
                                         section3.scrollIntoView({block: "start", behavior: "instant"});
                 
                 
@@ -224,7 +224,7 @@ function moveMainPage () {
                                             section3.style.webkitTransform = 'translateX(0%)';
                                             section3.style.mozTransform = 'translateX(0%)';
                                             logo.classList.add("active");
-                                            header.classList.remove('show');
+                                            header.classList.remove("show");
                                             section3.style.display = "none";
                                             section3.onpointermove = null;
                                             clearTimeout(logoAnimReversStep1);

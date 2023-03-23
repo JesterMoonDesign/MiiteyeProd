@@ -82,16 +82,11 @@ function deleteAnim () {
 
 if(isMobile.any()) {
     mobileIndex = 1;
-    mobileSeriesSliders ();
-    console.log('this is Mobile');
 } else {
     mobileIndex = 3;
-    seriesSliders ();
-    console.log('this is PC');
 };
 
 function seriesSliders () {
-    console.log('this is PC');
     let sliderWrappers = document.getElementsByClassName('sliderWrapper');
     const image = document.getElementsByClassName('sliderImageWrapper');
     let imageWidth = parseInt(getComputedStyle(image[0]).width);
@@ -109,7 +104,18 @@ function seriesSliders () {
 
 
         sliderWrappers[i].onpointerdown = function (event) {
+            console.log(i)
             sliderWrappers[i].setPointerCapture(event.pointerId);
+
+            if (isMobile.any()) {
+                let pagePosition = window.scrollY;
+                document.body.classList.add('disable-scroll');
+                xData.pageX = pagePosition;
+                document.body.style.top = -pagePosition + 'px';
+                sliderWrappers[i].style.touchAction= "none";
+                console.log(pagePosition)
+            };
+
 
             let slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
@@ -125,6 +131,14 @@ function seriesSliders () {
             }
 
             function endSlide () {
+                if (isMobile.any()) {
+                    pagePosition = xData.pageX;
+                    document.body.style.top = 'auto';
+                    window.scroll({ top: pagePosition, left: 0 });
+                    document.body.classList.remove('disable-scroll');
+                    sliderWrappers[i].style.touchAction = "auto";
+                    console.log(pagePosition)
+                }
                 getX0 ();
                 e2 = xData.x0;
                 if (e2 < e1 && e2-e1 < (-0.5*imageWidth) && y < slidersLength) {
@@ -174,90 +188,6 @@ function seriesSliders () {
             sliderWrappers[i].onpointerup = endSlide;
         }
     }
-}
+}seriesSliders ();
 
 
-
-function mobileSeriesSliders () {
-    console.log('this is Mobile');
-    let sliderWrappers = document.getElementsByClassName('sliderWrapper');
-    const image = document.getElementsByClassName('sliderImageWrapper');
-    let imageWidth = parseInt(getComputedStyle(image[0]).width);
-    let xData = {};
-    let y = mobileIndex;
-    let x1 = 0;
-    let x2 = 0;
-    for(let i = 0; i < sliderWrappers.length; i++) {
-    
-        function getX0 () {
-            let matrex = window.getComputedStyle(sliders[i]).getPropertyValue("transform");
-            let matrexArr = matrex.split(", ");
-            xData.x0 = parseInt(matrexArr[4]);
-        }getX0();
-
-        sliderWrappers[i].ontouchstart = function (event) {
-
-            let slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
-            let e1 = xData.x0;
-            let e2 = 0;
-            x1 = event.offsetX;
-            
-            sliderWrappers[i].ontouchmove = function (event) {
-                x2 = event.offsetX;
-                x = x2 - x1;
-                sliders[i].style.transform = "translateX(" + x + 'px)';
-                sliders[i].style.webkitTransform = "translateX(" + x + 'px)';
-                sliders[i].style.mozTransform = "translateX(" + x + 'px)';
-            }
-
-            function endSlide () {
-                getX0 ();
-                e2 = xData.x0;
-                if (e2 < e1 && e2-e1 < (-0.5*imageWidth) && y < slidersLength) {
-                    if (y>=slidersLength) {
-                        y=slidersLength;
-                    } else if (y<slidersLength) {
-                        y++;
-                        if (e2-e1 < (-1.5*imageWidth)) {
-                            y++;
-                            if (e2-e1 < (-2.5*imageWidth)) {
-                                y++;
-                            }
-                        }
-                    };
-                } else if (y>mobileIndex && e2 > e1 && e2-e1 > (0.5*imageWidth)) {
-                    if (y<=mobileIndex) {
-                        y=mobileIndex;
-                    } else {
-                        y--;
-                        if (e2-e1 > (1.5*imageWidth)) {
-                            y--;
-                            if (e2-e1 > (2.5*imageWidth)) {
-                                y--;
-                            }
-                        }
-                    }
-                };
-                if (y>=slidersLength) {
-                    y=slidersLength;
-                }
-                if (y<=mobileIndex) {
-                    y=mobileIndex;
-                };
-                if (y>mobileIndex && y <= slidersLength) {
-                    sliders[i].style.transform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
-                    sliders[i].style.webkitTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
-                    sliders[i].style.mozTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
-                } else if (y==mobileIndex) {
-                    sliders[i].style.transform = "translateX(0px)";
-                    sliders[i].style.webkitTransform = "translateX(0px)";
-                    sliders[i].style.mozTransform = "translateX(0px)";
-                }
-                getX0 ();
-                sliderWrappers[i].onpointermove = null;
-                
-            };
-            sliderWrappers[i].ontouchend = endSlide;
-        }
-    }
-}
