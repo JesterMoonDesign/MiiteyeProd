@@ -86,10 +86,6 @@ function moveMainPage () {
                                     section2.classList.add("active");
                                     section1.style.display = "none";
                                     section1.onpointermove = null;
-                                    section1.onpointerup = null;
-                                    section1.onpointerend = null;
-                                    section1.onpointerleave = null;
-                                    section1.onpointercancel = null;
                                     clearTimeout(logoAnimStep1);
                                 }, 1500);
                             };
@@ -132,6 +128,7 @@ function moveMainPage () {
                                 if (reverseIndex == 0){
                                     section2.classList.remove("active");
                                     section3.classList.remove("active");
+                                    header.classList.remove('show');
                                     section1.classList.add("active");
                                     section1.style.display = "flex";
                                     section1.scrollIntoView({block: "start", behavior: "instant"});
@@ -144,10 +141,6 @@ function moveMainPage () {
                                         section2.style.display = "none";
                                         section3.style.display = "none";
                                         section2.onpointermove = null;
-                                        section2.onpointerup = null;
-                                        section2.onpointerend = null;
-                                        section2.onpointerleave = null;
-                                        section2.onpointercancel = null;
                                         clearTimeout(logoAnimStep1);
                                     }, 50);
                                 };
@@ -169,6 +162,7 @@ function moveMainPage () {
                                         logo.classList.add("section3");
                                         section3.classList.add("active");
                                         section3.style.display = "block";
+                                        header.classList.add('show');
                                         section3.scrollIntoView({block: "start", behavior: "instant"});
                 
                 
@@ -176,10 +170,6 @@ function moveMainPage () {
                                             logo.classList.add("active");
                                             section2.style.display = "none";
                                             section2.onpointermove = null;
-                                            section2.onpointerup = null;
-                                            section2.onpointerend = null;
-                                            section2.onpointerleave = null;
-                                            section2.onpointercancel = null;
                                             clearTimeout(logoAnimStep2);
                                         }, 50);
                                     };
@@ -196,7 +186,6 @@ function moveMainPage () {
         } else {
             if (section3.classList.contains('active') && !section1.classList.contains('active') && !section2.classList.contains('active')) {
                 function goToSection2Reverse (event) {
-                    section3.setPointerCapture(event.pointerId);
                     let x = event.screenX;
 
                     section3.onpointermove = function (event) {
@@ -235,12 +224,9 @@ function moveMainPage () {
                                             section3.style.webkitTransform = 'translateX(0%)';
                                             section3.style.mozTransform = 'translateX(0%)';
                                             logo.classList.add("active");
+                                            header.classList.remove('show');
                                             section3.style.display = "none";
                                             section3.onpointermove = null;
-                                            section3.onpointerup = null;
-                                            section3.onpointerend = null;
-                                            section3.onpointerleave = null;
-                                            section3.onpointercancel = null;
                                             clearTimeout(logoAnimReversStep1);
                                         }, 50);
                                     };
