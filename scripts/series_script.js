@@ -227,7 +227,7 @@ function seriesSliders () {
         
             sliderWrappers[i].setPointerCapture(event.pointerId);
             
-            x1 = event.offsetX;
+            xData.x1 = event.offsetX;
             
             sliderWrappers[i].onpointermove = moveSlide;
         
@@ -294,9 +294,8 @@ function seriesSliders () {
         };
         
         function moveSlide (event) {
-            document.body.classList.add('disable-scroll');
             x2 = event.offsetX;
-            x = x2 - x1;
+            x = x2 - xData.x1;
             sliders[i].style.transform = "translateX(" + x + 'px)';
             sliders[i].style.webkitTransform = "translateX(" + x + 'px)';
             sliders[i].style.mozTransform = "translateX(" + x + 'px)';
