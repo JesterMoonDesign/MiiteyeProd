@@ -21,7 +21,7 @@ const isMobile = {
 
 function headerInnerMenu () {
     const mobileBtn = document.getElementById('pcBtn');
-    const innerMenu = document.getElementById('galleryHeaderMenuId');
+    const innerMenu = document.getElementById('seriesHeader');
     const arrow = document.getElementById('galleryMenuArrow');
 
     mobileBtn.addEventListener('click', (() => {
@@ -104,7 +104,6 @@ function seriesSliders () {
 
 
         sliderWrappers[i].onpointerdown = function (event) {
-            console.log(i)
             sliderWrappers[i].setPointerCapture(event.pointerId);
 
             if (isMobile.any()) {
