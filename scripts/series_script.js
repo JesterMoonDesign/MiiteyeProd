@@ -102,13 +102,13 @@ function seriesSliders () {
             event.preventDefault();
             sliderWrappers[i].setPointerCapture(event.pointerId);
 
-            
-                sliders[i].style.touchAction= "none";
+            if (isMobile.any()) {
+                sliderWrappers[i].style.touchAction= "none";
                 let pagePosition = window.scrollY;
                 document.body.classList.add('disable-scroll');
                 document.body.dataset.position = pagePosition;
                 document.body.style.top = -pagePosition + 'px';
-            
+            }
 
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
@@ -175,7 +175,7 @@ function seriesSliders () {
                 this.onpointerleave = null;
 
                 if (isMobile.any()) {
-                    sliders[i].style.touchAction= "auto";
+                    sliderWrappers[i].style.touchAction= "auto";
                     pagePosition = parseInt(document.body.dataset.position, 10);
                     document.body.style.top = 'auto';
                     document.body.classList.remove('disable-scroll');
