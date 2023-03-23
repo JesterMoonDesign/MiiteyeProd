@@ -96,16 +96,19 @@ function seriesSliders () {
             xData.x0 = parseInt(matrexArr[4]);
         }getX0();
 
-        sliderWrappers[i].onpointerdown = function (event) {
+        sliderWrappers[i].addEventListener('pointerdown', moveSlide);
+
+        function moveSlide (event) {
             event.preventDefault();
             sliderWrappers[i].setPointerCapture(event.pointerId);
 
-            if (isMobile.any()) {
+            
+                sliders[i].style.touchAction= "none";
                 let pagePosition = window.scrollY;
                 document.body.classList.add('disable-scroll');
                 document.body.dataset.position = pagePosition;
                 document.body.style.top = -pagePosition + 'px';
-            }
+            
 
             const slidersLength = sliders[i].getElementsByClassName('sliderImageWrapper').length;
             let e1 = xData.x0;
@@ -169,11 +172,11 @@ function seriesSliders () {
                 sliderWrappers[i].onpointermove = null;
                 this.onpointerup = null;
                 this.onpointerend = null;
-                this.onpointercancel = null;
                 this.onpointerleave = null;
 
                 if (isMobile.any()) {
-                    let pagePosition = parseInt(document.body.dataset.position, 10);
+                    sliders[i].style.touchAction= "auto";
+                    pagePosition = parseInt(document.body.dataset.position, 10);
                     document.body.style.top = 'auto';
                     document.body.classList.remove('disable-scroll');
                     window.scroll({ top: pagePosition, left: 0 });
@@ -182,7 +185,6 @@ function seriesSliders () {
             };
             this.onpointerup = endSlide;
             this.onpointerend = endSlide;
-            this.onpointercancel = endSlide;
             this.onpointerleave = endSlide;
         }
     }

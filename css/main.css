@@ -1697,7 +1697,6 @@ footer.active {
     width: 26.823vw;
     padding-bottom: 17.709vw;
     margin-right: 20px;
-    pointer-events: none;
 }
 
 .sliderImage {
@@ -1705,7 +1704,6 @@ footer.active {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    pointer-events: none;
 }
 
 .seriesSign {
