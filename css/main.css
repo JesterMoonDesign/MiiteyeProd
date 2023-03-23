@@ -11,7 +11,7 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font:inherit;}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
 html{height:100vh; width: 100vw; overflow-x: hidden;}
-body{line-height:1;overflow-x: hidden;position: relative;}
+body{line-height:1;position: relative;overflow-x: hidden;}
 ol,ul{list-style:none}
 button {padding: 0;margin: 0;border: none;font: inherit;color: inherit;background-color: transparent;cursor: pointer;}
 blockquote,q{quotes:none}
@@ -34,7 +34,6 @@ a:hover{text-decoration: underline;}
 .disable-scroll {
 	position: relative;
 	overflow: hidden;
-	height: 100vh;
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -1613,9 +1612,6 @@ footer.active {
 }
 
 /*Series page styles*/
-.indexSection1 {
-	height: 100vh;
-}
 
 .seriesHeader {
     transform: translateX(100%);
