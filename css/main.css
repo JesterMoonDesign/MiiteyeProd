@@ -1656,6 +1656,7 @@ footer.active {
     align-items: center;
     justify-content: flex-start;
     opacity: 0;
+    pointer-events: none;
 }
 
 .imagesRow.num1 {
