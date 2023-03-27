@@ -321,25 +321,23 @@ if(isMobile.any()) {
 
 
 let sliderWrappers = document.getElementsByClassName('sliderWrapper');
-//sliders = currentRow
-const image = document.getElementsByClassName('sliderImageWrapper');
-let imageWidth = parseInt(getComputedStyle(image[0]).width);
 let xData = [];
 let x1;
-//mobileIndex;
-
+let y = mobileIndex;
 
 for(let i = 0; i < sliderWrappers.length; i++) {
     sliderWrappers[i].addEventListener('pointerdown', slider);
+    sliderWrappers[i].ondragstart = () => false;
+    sliderWrappers[i].dataset.index = y;
 }
-
 
 function slider (event) {
     event.preventDefault();
     let currentSlider = event.target;
     let currentRow = event.target.firstElementChild;
     let x;
-
+    let slidersLength = currentRow.children.length;
+    let imageWidth = parseInt(getComputedStyle(currentRow.children[0]).width);
 
     function getX0 () {
         let matrex = window.getComputedStyle(currentRow).getPropertyValue("transform");
@@ -347,13 +345,16 @@ function slider (event) {
         xData.x0 = parseInt(matrexArr[4]);
     }getX0();
 
+
+    currentSlider.setPointerCapture(event.pointerId);
+
     x1 = event.layerX + Math.abs(xData.x0);
+    console.log(event.layerX)
 
     currentSlider.onpointermove = moveSlide;
     
     function moveSlide (event) {
         event.preventDefault();
-        currentSlider.style.touchAction = "none";
 
         xData.x2=event.layerX;
 
@@ -365,11 +366,65 @@ function slider (event) {
     }
 
     currentSlider.onpointerup = endSlide;
-    currentSlider.onpointercancel = endSlide;
     currentSlider.onpointerleave = endSlide;
+    currentSlider.onpointercancel = endSlide;
 
     function endSlide () {
-        currentSlider.style.touchAction = "auto";
+
+        y = currentSlider.getAttribute("data-index");
+
+        let e1 = Math.abs(xData.x0);
+        getX0 ();
+        let e2 = Math.abs(xData.x0);
+
+        if (e2 > e1 && e2-e1 > (0.5*imageWidth)) {
+            if (y>=slidersLength) {
+                y=slidersLength;
+            } else {
+                y++;
+                if (e2-e1 > (1.5*imageWidth)) {
+                    y++;
+                    if (e2-e1 > (2.5*imageWidth)) {
+                        y++;
+                    }
+                }
+            };
+        } else if (e2 < e1 && e2-e1 < (-0.5*imageWidth)) {
+            if (y<mobileIndex) {
+                y=mobileIndex;
+            } else {
+                y--;
+                if (e2-e1 < (-1.5*imageWidth)) {
+                    y--;
+                    if (e2-e1 < (-2.5*imageWidth)) {
+                        y--;
+                    }
+                }
+            }
+        };
+
+        if (y>=slidersLength) {
+            y=slidersLength;
+        }
+        if (y<=mobileIndex) {
+            y=mobileIndex;
+        };
+
+        if (y>mobileIndex && y <= slidersLength) {
+            currentRow.style.transform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
+            currentRow.style.webkitTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
+            currentRow.style.mozTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
+        } else if (y==mobileIndex) {
+            currentRow.style.transform = "translateX(0px)";
+            currentRow.style.webkitTransform = "translateX(0px)";
+            currentRow.style.mozTransform = "translateX(0px)";
+        }
+        getX0 ();
+        currentSlider.dataset.index = y;
+
         currentSlider.onpointermove = null;
+        currentSlider.onpointerup = null;
+        currentSlider.onpointercancel = null;
+        currentSlider.onpointerleave = null;
     }
-}
+};
