@@ -349,7 +349,6 @@ function slider (event) {
     currentSlider.setPointerCapture(event.pointerId);
 
     x1 = event.layerX + Math.abs(xData.x0);
-    console.log(event.layerX)
 
     currentSlider.onpointermove = moveSlide;
     
@@ -374,13 +373,14 @@ function slider (event) {
         y = currentSlider.getAttribute("data-index");
 
         let e1 = Math.abs(xData.x0);
+        let checkIndex = xData.x0;
         getX0 ();
         let e2 = Math.abs(xData.x0);
 
-        if (e2 > e1 && e2-e1 > (0.5*imageWidth)) {
+        if (y>=mobileIndex && e2 > e1 && e2-e1 > (0.5*imageWidth)) {
             if (y>=slidersLength) {
                 y=slidersLength;
-            } else {
+            } else if (xData.x0<0) {
                 y++;
                 if (e2-e1 > (1.5*imageWidth)) {
                     y++;
@@ -428,5 +428,3 @@ function slider (event) {
         currentSlider.onpointerleave = null;
     }
 };
-
-//Баг с перелистыванием на второй слайд
