@@ -43,6 +43,7 @@ function isGallery () {
         section1.classList.remove("active");
         section2.classList.remove("active");
         section3.classList.add("active");
+        header.classList.add("show");
         logo.classList.remove("section2");
         logo.classList.add("active");
         logo.classList.add("section3");

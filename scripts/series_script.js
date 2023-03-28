@@ -389,8 +389,8 @@ function slider (event) {
                     }
                 }
             };
-        } else if (e2 < e1 && e2-e1 < (-0.5*imageWidth)) {
-            if (y<mobileIndex) {
+        } else if (y>mobileIndex && e2 < e1 && e2-e1 < (-0.5*imageWidth)) {
+            if (y<=mobileIndex) {
                 y=mobileIndex;
             } else {
                 y--;
@@ -414,7 +414,7 @@ function slider (event) {
             currentRow.style.transform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
             currentRow.style.webkitTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
             currentRow.style.mozTransform = "translateX(" + ((y-mobileIndex)*-imageWidth-(y-mobileIndex)*20) + "px)";
-        } else if (y==mobileIndex) {
+        } else if (y===mobileIndex) {
             currentRow.style.transform = "translateX(0px)";
             currentRow.style.webkitTransform = "translateX(0px)";
             currentRow.style.mozTransform = "translateX(0px)";
@@ -428,3 +428,5 @@ function slider (event) {
         currentSlider.onpointerleave = null;
     }
 };
+
+//Баг с перелистыванием на второй слайд

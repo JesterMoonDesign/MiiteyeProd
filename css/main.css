@@ -92,7 +92,7 @@ a:hover{text-decoration: underline;}
 /*Header*/
 #indexHeader {
     width: 100%;
-    padding: 2.604% 2% 0 0;
+    padding-top: 2.604%;
     visibility: hidden;
     transform: translateX(40%);
     -webkit-transform: translateX(40%);
@@ -1596,6 +1596,10 @@ footer.active {
     animation: galleryLoad 0.3s ease-in 0.7s forwards;
     -webkit-animation: galleryLoad 0.3s ease-in 0.7s forwards;
     -moz-animation: galleryLoad 0.3s ease-in 0.7s forwards;
+}
+
+.lazyWrapper {
+    background: url(../img/design_pics/loading.gif) center / 50px no-repeat;
 }
 
 @keyframes galleryLoad {
