@@ -373,7 +373,6 @@ function slider (event) {
         y = currentSlider.getAttribute("data-index");
 
         let e1 = Math.abs(xData.x0);
-        let checkIndex = xData.x0;
         getX0 ();
         let e2 = Math.abs(xData.x0);
 

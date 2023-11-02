@@ -268,7 +268,6 @@ function mobileHeaderInnerMenu () {
 
     mobileBtn.addEventListener('click', (() => {
         innerMenu.classList.toggle('active');
-        document.body.removeEventListener('pointerdown', goToSection2Reverse);
     }));
 };
 
